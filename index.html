@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Setoran Cash Laziswaf Siman</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-teal: #0D9488;
+            --light-teal: #CCFBF1;
+            --bg-color: #F8FAFC;
+            --text-dark: #1E293B;
+            --text-muted: #64748B;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            padding: 2rem;
+        }
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            color: var(--primary-teal);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        /* KPI Cards */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border-top: 4px solid var(--primary-teal);
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-title {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .card-subtext {
+            font-size: 0.8rem;
+            color: var(--primary-teal);
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+
+        /* Charts Section */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 900px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .chart-container {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .chart-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+
+        /* Insights Section */
+        .insights-container {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid var(--primary-teal);
+        }
+
+        .insights-container h3 {
+            color: var(--primary-teal);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .insights-list {
+            list-style-type: none;
+        }
+
+        .insights-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .insights-list li::before {
+            content: "•";
+            color: var(--primary-teal);
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+            top: -4px;
+        }
+        
+        .highlight {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Dashboard Setoran Cash Laziswaf Siman</h1>
+            <p>Rekapitulasi Realisasi Setoran (Tunai) Bulan Shafar - Jumadil Awal 1448 H</p>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="kpi-grid">
+            <div class="card">
+                <div class="card-title">Total Setoran Cash (4 Bulan)</div>
+                <div class="card-value">Rp 11.000.600</div>
+                <div class="card-subtext">Berdasarkan data riil transfer</div>
+            </div>
+            <div class="card">
+                <div class="card-title">Rata-rata Setoran Bulanan</div>
+                <div class="card-value">Rp 2.750.150</div>
+                <div class="card-subtext">Perlu peningkatan baseline</div>
+            </div>
+            <div class="card">
+                <div class="card-title">Bulan Tertinggi</div>
+                <div class="card-value">Rabi'ul Akhir</div>
+                <div class="card-subtext">Rp 3.018.000 (+30%)</div>
+            </div>
+            <div class="card">
+                <div class="card-title">Bulan Terendah</div>
+                <div class="card-value">Rabi'ul Awal</div>
+                <div class="card-subtext">Rp 2.321.000 (-16%)</div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="charts-grid">
+            <!-- Trend Chart -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <div class="chart-title">Tren Setoran Cash (Tunai)</div>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="trendChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Source Chart -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <div class="chart-title">Sumber Pendorong Utama</div>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="sourceChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Insights Section -->
+        <div class="insights-container">
+            <h3>📊 Analisis & Insight (Berdasarkan Data Realisasi)</h3>
+            <ul class="insights-list">
+                <li><span class="highlight">Maskam Sebagai Penentu Fluktuasi:</span> Lonjakan tertinggi di Rabi'ul Akhir (Rp 3 Juta) murni disebabkan oleh meledaknya setoran Maskam (Rp 2,4 Juta). Sebaliknya, saat Maskam sepi, total setoran cash langsung ikut anjlok.</li>
+                <li><span class="highlight">Daur Jabi/Dosen Tidak Konsisten:</span> Setoran dari Dosen berkisar antara Rp 600 ribu - Rp 1 Juta. Ini mengindikasikan tidak ada sistem <i>autodebet</i> atau pemotongan gaji otomatis, sehingga sangat bergantung pada kesibukan/kehadiran dosen.</li>
+                <li><span class="highlight">Ketiadaan Donatur Tetap (Missing Baseline):</span> Kosongnya baris Donatur Tetap Mahasiswa dan Luar membuat kas bulanan tidak memiliki "penyangga" (buffer) yang pasti. </li>
+                <li><span class="highlight">Rekomendasi Aksi:</span> Pengelola wajib menggencarkan program <b>Donatur Tetap (Mahasiswa/Dosen)</b> dengan sistem autodebet (misal: Rp 50.000/bulan). Dengan begitu, saat aktivitas Masjid (Maskam) sedang sepi, arus kas Laziswaf tetap aman.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Scripts for Charts -->
+    <script>
+        // Format Currency
+        const formatRupiah = (value) => {
+            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(value);
+        };
+
+        // 1. Trend Chart (Line Chart)
+        const ctxTrend = document.getElementById('trendChart').getContext('2d');
+        
+        // Gradient for Line Chart
+        let gradient = ctxTrend.createLinearGradient(0, 0, 0, 300);
+        gradient.addColorStop(0, 'rgba(13, 148, 136, 0.5)'); // Teal with opacity
+        gradient.addColorStop(1, 'rgba(13, 148, 136, 0.05)');
+
+        new Chart(ctxTrend, {
+            type: 'line',
+            data: {
+                labels: ['Shafar', "Rabi'ul Awal", "Rabi'ul Akhir", 'Jumadil Awal'],
+                datasets: [{
+                    label: 'Setoran Cash',
+                    data: [2768600, 2321000, 3018000, 2893000],
+                    borderColor: '#0D9488',
+                    backgroundColor: gradient,
+                    borderWidth: 3,
+                    pointBackgroundColor: '#FFFFFF',
+                    pointBorderColor: '#0D9488',
+                    pointBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHoverRadius: 7,
+                    fill: true,
+                    tension: 0.4 // Smooth curves
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return 'Setoran: ' + formatRupiah(context.raw);
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return 'Rp ' + (value / 1000000).toFixed(1) + ' Jt'; // Format in Millions
+                            }
+                        },
+                        grid: { color: '#F1F5F9' }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // 2. Source Chart (Stacked Bar Chart)
+        const ctxSource = document.getElementById('sourceChart').getContext('2d');
+        new Chart(ctxSource, {
+            type: 'bar',
+            data: {
+                labels: ['Shafar', "Rabi'ul Awal", "Rabi'ul Akhir", 'Jumadil Awal'],
+                datasets: [
+                    {
+                        label: 'Maskam',
+                        data: [1477500, 1689000, 2446100, 1905500],
+                        backgroundColor: '#0D9488', // Primary Teal
+                        borderRadius: 4
+                    },
+                    {
+                        label: 'Daur Jabi/Dosen',
+                        data: [1000000, 650000, 600000, 1000000],
+                        backgroundColor: '#99F6E4', // Light Teal
+                        borderRadius: 4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { 
+                        position: 'bottom',
+                        labels: { boxWidth: 12, usePointStyle: true }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.dataset.label + ': ' + formatRupiah(context.raw);
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        stacked: true,
+                        grid: { display: false }
+                    },
+                    y: {
+                        stacked: true,
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return 'Rp ' + (value / 1000000).toFixed(1) + ' Jt';
+                            }
+                        },
+                        grid: { color: '#F1F5F9' }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
